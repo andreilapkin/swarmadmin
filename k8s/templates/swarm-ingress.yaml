@@ -33,8 +33,18 @@ spec:
       http:
         paths:
           - path: {{ .path | quote }}
+          {{- if semverCompare "<1.19-0" $.Capabilities.KubeVersion.GitVersion }}
             backend:
               serviceName: {{ $fullName }}
               servicePort: 8080
+          {{- else }}
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: 8080
+
+          {{- end }}
     {{- end }}
   {{- end }}
