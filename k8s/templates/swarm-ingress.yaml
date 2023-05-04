@@ -44,7 +44,6 @@ spec:
                 name: {{ $fullName }}
                 port:
                   number: 8080
-
           {{- end }}
     {{- end }}
   {{- end }}
